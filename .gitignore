@@ -1,0 +1,14 @@
+# Remove data folders
+/data
+
+
+# Enviroment variables
+.env
+
+
+# Exclue Jupyter checkpoints
+.ipynb_checkpoints
+
+
+# Byte-compiled 
+__pycache__/
