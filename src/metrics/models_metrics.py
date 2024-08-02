@@ -10,7 +10,7 @@ def print_sklearn_model_metrics(model, x_test: np.ndarray, y_test: np.ndarray, m
     y_pred = model.predict(x_test)
 
     _get_accuracy(y_test, y_pred)
-    print(cohen_kappa_score(y_test, y_pred))
+    print('Cohen-Kappa:', cohen_kappa_score(y_test, y_pred))
     print(classification_report(y_test, y_pred))
 
     y_pred_proba = model.predict_proba(x_test)
