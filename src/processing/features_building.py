@@ -12,12 +12,12 @@ BOOLEAN_COLUMNS = ['family_history_with_overweight', 'FAVC', 'SMOKE', 'SCC']
 DROPED_FEATURES = ['Gender', 'NCP', 'SMOKE', 'MTRANS']
 
 
-def build_features(df: pd.DataFrame) -> pd.DataFrame:
+def build_features(df: pd.DataFrame, encoder_path: str = None, pca_path: str = None, deploy: bool = False) -> pd.DataFrame:
 
     df[BOOLEAN_COLUMNS] = df[BOOLEAN_COLUMNS].replace('yes', 1) 
     df[BOOLEAN_COLUMNS] = df[BOOLEAN_COLUMNS].replace('no', 0) 
 
-    encoders = _load_encoders()
+    encoders = _load_encoders(encoder_path)
 
     for column in STRING_COLUMNS:
         encoder = encoders[column]
@@ -27,8 +27,11 @@ def build_features(df: pd.DataFrame) -> pd.DataFrame:
     build_bmi_feature(df)
     std_data = standarize_data(df, df.columns)
     
-    pca = _load_pca()
-    pca_components = pca.fit_transform(std_data)
+    pca = _load_pca(pca_path)
+    if deploy:
+        pca_components = pca.transform(std_data)
+    else:
+        pca_components = pca.fit_transform(std_data)
 
     columns = [f'PCA {i}' for i in range(1, pca.n_components_ + 1)]
     components_df = pd.DataFrame(
@@ -76,16 +79,20 @@ def remove_not_correlated_features(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def _load_pca() -> PCA:
-    path = '../../results/red_dimension/'
+def _load_pca(path: str | None= None) -> PCA:
+    if not path:
+        path = '../../results/red_dimension/'
+
     with open(path + 'pca.pkl', 'rb') as file:
         pca = pickle.load(file)
     
     return pca
 
 
-def _load_encoders() -> dict[str, LabelEncoder]:
-    path = '../../results/encoders/'
+def _load_encoders(path: str | None= None) -> dict[str, LabelEncoder]:
+    if not path:
+        path = '../../results/encoders/'
+
     with open(path + 'encoders.pkl', 'rb') as file:
         encoders = pickle.load(file)
     
