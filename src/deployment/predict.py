@@ -1,6 +1,5 @@
 import sys
-import os
-sys.path.append('../../')
+sys.path.append('../')
 
 import pandas as pd
 import streamlit as st
@@ -10,9 +9,9 @@ from dotenv import load_dotenv
 
 from google.cloud import storage
 
-from src.models.models_enums import Models
-from src.processing.features_building import build_features
-from src.utils.obesity_encoder import get_class_encoder, ENCODER_NOBESITY
+from models.models_enums import Models
+from processing.features_building import build_features
+from utils.obesity_encoder import get_class_encoder, ENCODER_NOBESITY
 
 load_dotenv()
 
