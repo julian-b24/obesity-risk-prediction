@@ -6,7 +6,7 @@ import streamlit as st
 import pickle
 import pandas as pd
 
-from src.streamlit.predict import execute_prediction
+from predict import execute_prediction
 from src.utils.obesity_encoder import get_class_encoder, NCP_ENCODER, CH20_ENCODER, FCVC_ENCODER, TUE_ENCODER, FAF_ENCODER
 from src.models.models_enums import Models
 
@@ -173,8 +173,6 @@ with st.form('obesity_form'):
             'NCP': NCP_ENCODER[ncp],
             'MTRANS': mtrans.replace(' ', '_')
         }
-
-        prediction = execute_prediction(sample, model_type=model)
-        print(sample)
-        print(prediction)
-        st.write(prediction)
+        with st.spinner('Wait for it...'):
+            prediction = execute_prediction(sample, model_type=model)
+            st.success(f'Prediction: {prediction.replace('_', ' ')}')
