@@ -4,6 +4,7 @@
 
 # Enviroment variables
 .env
+*.toml
 
 
 # Exclue Jupyter checkpoints
@@ -14,3 +15,7 @@
 __pycache__/
 /results/models
 /results/predictions
+
+
+# Credentials
+/credentials

@@ -3,16 +3,26 @@ import os
 sys.path.append('../../')
 
 import pandas as pd
+import streamlit as st
 import pickle
+
+from dotenv import load_dotenv
+
+from google.cloud import storage
 
 from src.models.models_enums import Models
 from src.processing.features_building import build_features
 from src.utils.obesity_encoder import get_class_encoder, ENCODER_NOBESITY
 
+load_dotenv()
 
 RESULTS_PATH = './results/'
 MODELS_PATH = RESULTS_PATH + 'models/'
+DEPLOY = True
 
+gcp_credentials = st.secrets["gcp_service_account"]
+#gcp_credentials_json = json.dumps(gcp_credentials)
+gcp_credentials_dict = dict(gcp_credentials)
 
 def sample_to_df(sample: dict) -> pd.DataFrame:
     return pd.DataFrame(sample, index=[0])
@@ -38,6 +48,16 @@ def load_model(model_type: Models):
         Models.XGBOOST.name: Models.XGBOOST.value, 
     }
 
-    with open(MODELS_PATH + f'model.{models[model_type]}.pkl', 'rb') as file:
-        model = pickle.load(file)
+    model_name = f'model.{models[model_type]}.pkl'
+
+    if DEPLOY:
+        client = storage.Client.from_service_account_info(gcp_credentials_dict)
+        bucket = client.get_bucket(st.secrets["GCS_BUCKET_NAME"])
+        blob = bucket.blob(model_name)
+        pickle_in = blob.download_as_string()
+        model = pickle.loads(pickle_in)
+
+    else:
+        with open(MODELS_PATH + model_name, 'rb') as file:
+            model = pickle.load(file)
     return model
