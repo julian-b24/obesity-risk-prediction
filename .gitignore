@@ -12,4 +12,5 @@
 
 # Byte-compiled 
 __pycache__/
-/results
+/results/models
+/results/predictions
