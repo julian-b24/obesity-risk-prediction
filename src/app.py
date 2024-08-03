@@ -3,12 +3,9 @@ sys.path.append('../../')
 
 import streamlit as st
 
-import pickle
-import pandas as pd
-
-from predict import execute_prediction
-from src.utils.obesity_encoder import get_class_encoder, NCP_ENCODER, CH20_ENCODER, FCVC_ENCODER, TUE_ENCODER, FAF_ENCODER
-from src.models.models_enums import Models
+from deployment.predict import execute_prediction
+from utils.obesity_encoder import get_class_encoder, NCP_ENCODER, CH20_ENCODER, FCVC_ENCODER, TUE_ENCODER, FAF_ENCODER
+from models.models_enums import Models
 
 
 model = None # Load Model
