@@ -159,6 +159,7 @@ dependencies:
       - soupsieve==2.5
       - stack-data==0.6.3
       - streamlit==1.37.0
+      - streamlit-option-menu==0.3.13
       - tenacity==8.5.0
       - terminado==0.18.1
       - threadpoolctl==3.5.0
