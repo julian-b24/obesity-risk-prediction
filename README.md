@@ -1,5 +1,8 @@
 # Obesity Risk Prediction using Machine Learning Models
 
+## Youtube Link
+[Link](https://youtu.be/G1-RAeXdGPQ)
+
 ## Overview 💊
 
 Obesity is a significant global health issue, associated with multiple risk factors and chronic diseases. In this project, we explore machine learning techniques to predict obesity risk based on publicly available health data: [Kaggle Competition](https://www.kaggle.com/competitions/playground-series-s4e2). The goal of this project is showing all the process of building a machine learning solution starting from the data analysis and finishing with the deployment of it.
