@@ -30,6 +30,6 @@ We explore several machine learning methods to predict obesity:
 
 ## Deployment 🌎
 
-- The deployed service can be accessed at [link](link).
+- The deployed service can be accessed at [streamlit](https://obesity-risk-prediction-julian.streamlit.app/).
 
 ## Environment Setup ⚙️
